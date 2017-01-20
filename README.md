@@ -42,7 +42,7 @@ you use APF on your server in general, but deflate will work without it.)
 As root user execute the following commands:
 
 ```shell
-wget https://github.com/eagle/ddos-deflate/archive/master.zip
+wget https://github.com/eaglewu/ddos-deflate/archive/master.zip
 unzip master.zip
 cd ddos-deflate-master
 ./install.sh
