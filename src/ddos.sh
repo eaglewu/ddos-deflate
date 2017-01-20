@@ -331,7 +331,8 @@ check_connections()
         # Slack
         if [ -n "$SLACK_TOKEN" ] && [ -n "$SLACK_CHANNEL" ]; then 
             message=`cat $BANNED_IP_MAIL``echo -e "\n[$HOSTNAME] IP addresses banned on $dt"`
-            curl -XGET "https://slack.com/api/chat.postMessage" --data "token=$SLACK_TOKEN&channel=$SLACK_CHANNEL&text=$message"
+            message=$(python -c "import urllib; print urllib.quote('''$message''')")
+            curl "https://slack.com/api/chat.postMessage?token=$SLACK_TOKEN&channel=$SLACK_CHANNEL&text=$message"
         fi
 
         if [ $KILL -eq 1 ]; then
