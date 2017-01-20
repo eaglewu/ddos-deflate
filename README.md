@@ -23,6 +23,7 @@ you use APF on your server in general, but deflate will work without it.)
 
 ### Notable Features
 
+* Support for slack alarm.
 * It is possible to whitelist IP addresses, via /etc/ddos/ignore.ip.list.
 * It is possible to whitelist hostnames, via /etc/ddos/ignore.host.list.
 * Simple configuration file: /etc/ddos/ddos.conf
@@ -41,7 +42,7 @@ you use APF on your server in general, but deflate will work without it.)
 As root user execute the following commands:
 
 ```shell
-wget https://github.com/jgmdev/ddos-deflate/archive/master.zip
+wget https://github.com/eagle/ddos-deflate/archive/master.zip
 unzip master.zip
 cd ddos-deflate-master
 ./install.sh
