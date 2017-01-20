@@ -323,9 +323,15 @@ check_connections()
     done < $BAD_IP_LIST
 
     if [ $IP_BAN_NOW -eq 1 ]; then
+        dt=`date`
         if [ -n "$EMAIL_TO" ]; then
-            dt=`date`
             cat $BANNED_IP_MAIL | mail -s "[$HOSTNAME] IP addresses banned on $dt" $EMAIL_TO
+        fi
+
+        # Slack
+        if [ -n "$SLACK_TOKEN" ] && [ -n "$SLACK_CHANNEL" ]; then 
+            message=`cat $BANNED_IP_MAIL``echo -e "\n[$HOSTNAME] IP addresses banned on $dt"`
+            curl -XGET "https://slack.com/api/chat.postMessage" --data "token=$SLACK_TOKEN&channel=$SLACK_CHANNEL&text=$message"
         fi
 
         if [ $KILL -eq 1 ]; then
@@ -539,6 +545,8 @@ DAEMON_FREQ=5
 NO_OF_CONNECTIONS=150
 FIREWALL="auto"
 EMAIL_TO="root"
+SLACK_TOKEN=""
+SLACK_CHANNEL=""
 BAN_PERIOD=600
 CONN_STATES="ESTABLISHED|SYN_SENT|SYN_RECV|FIN_WAIT1|FIN_WAIT2|TIME_WAIT|CLOSE_WAIT|LAST_ACK|CLOSING"
 ONLY_INCOMING=false
